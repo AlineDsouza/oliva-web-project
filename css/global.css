@@ -1,0 +1,74 @@
+/*ESTILOS GLOBAIS*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* cores */
+    --verde-floresta: #34483B;
+    --marfim: #F5EFE5;
+    --salvia-clara: #DFE0D1;
+    --carvao: #292522;
+    --branco--transparent: #ffffffa6;
+    --branco: #FFFFFF;
+
+        /* Tipografia */
+    --font-title: 'Cormorant Garamond', Georgia, serif;
+    --font-main: 'DM Sans', sans-serif;
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+    --verde-floresta: #34483B;
+    --carvao-escuro: #292522;
+    --verde-escuro: #31312B;
+    --branco-dt: #ffffff;
+    --dourado: #C5A46D;
+
+}
+
+/* ESTILO GERAL */
+
+body {
+    background-color: var(--marfim);
+    color: var(--carvao);
+    font-family: var(--font-main);
+}
+
+/* FONTES APLICADAS */
+h1,h2,h3,h4,h5 {
+    font-family: var(--font-title);
+}
+
+/* CONFIGURAÇÃO FOOTER*/
+.logo-footer{
+    font-family: var(--font-title);
+    color: var(--branco);
+    font-size: 45px;
+}
+.footer-h3{
+    color: var(--branco);
+    font-family: var(--font-main);
+    font-size: 20px;
+    font-weight: 100;  
+}
+footer{
+    background-color: var(--verde-floresta);
+}
+footer a {
+    text-decoration: none;
+    color: var(--branco--transparent);
+}
+
+footer p{
+    color: var(--branco--transparent);
+}
+
+footer a:hover {
+    background-color: var(--salvia-clara);
+    padding: 5px;
+    color: var(--carvao);
+    border-radius: 20px;
+    font-weight: bold;
+}
