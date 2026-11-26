@@ -22,13 +22,24 @@
     <!--Componente Navbar-->
     <div id="navbar-container"></div>
     
-    <main> 
+    <main>
+    <!--Search Bar-->     
         <form         id="searchForm" >
             <label   for="searchInput">Pesquisa</label>
             <input    id="searchInput" required>
             <button type="submit"     >Pesquisar</button>
         </form>
-        
+
+    <!--Search Filters-->
+        <div     class="btn-group justify-content-space-between" role="group">
+            <button id="btnTodos"      type="button" >Todos</button>
+            <button id="btnEntradas"   type="button" >Entradas</button>
+            <button id="btnPratos"     type="button" >Pratos</button>
+            <button id="btnSobremesas" type="button" >Sobremesas</button>
+            <button id="btnBebidas"    type="button" >Bebidas</button>
+        </div>
+
+    <!--Search Results-->
         <div          id="searchContainer" class="container">
             <div      id="searchBox"       class="row justify-content-space-between row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4 gx-4 mt-3">       
             </div>

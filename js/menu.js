@@ -1,6 +1,11 @@
-const  searchForm = document.getElementById("searchForm");
-const searchInput = document.getElementById("searchInput");
-const   searchBox = document.getElementById("searchBox");
+const    searchForm = document.getElementById("searchForm");
+const   searchInput = document.getElementById("searchInput");
+const     searchBox = document.getElementById("searchBox");
+const      btnTodos = document.getElementById("btnTodos");
+const   btnEntradas = document.getElementById("btnEntradas");
+const     btnPratos = document.getElementById("btnPratos");
+const btnSobremesas = document.getElementById("btnSobremesas");
+const    btnBebidas = document.getElementById("btnBebidas")
 
 const produtos = [
     {         nome: "prod1",
@@ -100,8 +105,15 @@ function filterByTipo(tipo) {
     }
 }
 
+function removeFilter(){
+    for(const produto of produtos){
+        produto.activo = true;
+    }
+}
+
 function showResults(){
 	let found = false;
+    searchBox.innerHTML = '';
 
     for(const produto of produtos){
         if(produto.activo === true) {
@@ -133,7 +145,7 @@ function showResults(){
             const cardPrice = document.createElement("p");
             cardPrice.className = "badge text-bg-success";
             const price = produto.preco / 100;
-            cardPrice.textContent = `${price} €`
+            cardPrice.textContent = `${price} €`;
             cardBody.appendChild(cardPrice);
 
             itemCard .appendChild(cardBody);
@@ -144,14 +156,48 @@ function showResults(){
 
 	if(!found){
 		const notFound = document.createElement("p");
-		notFound.textContent = "Sem resultados."
+		notFound.textContent = "Sem resultados.";
 		
 		searchBox.appendChild(notFound);
 	}
 }
 
-searchForm.addEventListener("submit", (event) =>  {
+btnTodos.addEventListener("click", (event)  => {
     event.preventDefault();
-    searchBox.innerHTML = '';
+    removeFilter();
+    showResults();
+});
+
+btnBebidas.addEventListener("click", (event)  => {
+    event.preventDefault();
+    filterByTipo("bebida");
+    showResults();
+});
+
+btnEntradas.addEventListener("click", (event)  => {
+    event.preventDefault();
+    filterByTipo("entrada");
+    showResults();
+});
+
+btnPratos.addEventListener("click", (event)  => {
+    event.preventDefault();
+    filterByTipo("prato");
+    showResults();
+});
+
+btnSobremesas.addEventListener("click", (event)  => {
+    event.preventDefault();
+    filterByTipo("sobremesa");
+    showResults();
+});
+
+searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    showResults();
+});
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    event.preventDefault();
     showResults();
 });
