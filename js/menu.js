@@ -5,7 +5,8 @@ const      btnTodos = document.getElementById("btnTodos");
 const   btnEntradas = document.getElementById("btnEntradas");
 const     btnPratos = document.getElementById("btnPratos");
 const btnSobremesas = document.getElementById("btnSobremesas");
-const    btnBebidas = document.getElementById("btnBebidas")
+const    btnBebidas = document.getElementById("btnBebidas");
+let    activeFilter = "none";
 
 const produtos = [
     {         nome: "prod1",
@@ -94,6 +95,11 @@ const produtos = [
     }
 ]
 
+/**
+ * Torna um tipo de elementos activo, ficandos os outros tipos inactivos (ocultos)
+ * 
+ * @param {String} tipo tipo de elementos a mostrar: entrada, prato, sobremesa, bebida.
+ */
 function filterByTipo(tipo) {
     for(const produto of produtos){
         if(produto.tipo === tipo){
@@ -103,14 +109,55 @@ function filterByTipo(tipo) {
 			produto.activo = false;
 		}
     }
+
+    activeFilter = tipo;
 }
 
+/**
+ * Removes any filter, turns all elements active
+ */
 function removeFilter(){
     for(const produto of produtos){
         produto.activo = true;
     }
+
+    activeFilter = "none"
 }
 
+/**
+ * Makes a search and turns active only elements containing the provided keyword
+ * 
+ * @param {String} word keyword to be searched
+ */
+function search(word) {
+    let found = false;
+
+    for(const produto of produtos){
+        if(produto.activo === false){
+            continue;
+        }
+        found = false;
+
+        if(word === produto.nome || word === produto.tipo){
+            found = true;
+            continue;
+        }
+
+        for(const ingrediente of produto.ingredientes){
+            if(word === ingrediente){
+                found = true;
+            }
+        }
+        
+        if(!found){
+            produto.activo = false;
+        }
+    }
+}
+
+/**
+ * Shows all active elements, displays a "nothing found" message when there's no active elements
+ */
 function showResults(){
 	let found = false;
     searchBox.innerHTML = '';
@@ -139,7 +186,9 @@ function showResults(){
 
             const cardText = document.createElement("p");
             cardText.className = "card-text";
-            cardText.textContent = produto.tipo;
+            for(let ingredient of produto.ingredientes){
+                cardText.textContent += `${ingredient} `;
+            }
             cardBody.appendChild(cardText);
             
             const cardPrice = document.createElement("p");
@@ -162,6 +211,7 @@ function showResults(){
 	}
 }
 
+//Button handlers
 btnTodos.addEventListener("click", (event)  => {
     event.preventDefault();
     removeFilter();
@@ -192,11 +242,23 @@ btnSobremesas.addEventListener("click", (event)  => {
     showResults();
 });
 
+//Search handler
 searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    search(searchInput.value.trim());
+    searchInput.value="";
     showResults();
+    
+    if(activeFilter === "none"){
+        removeFilter();
+    }
+    
+    else {
+        filterByTipo(activeFilter);
+    }
 });
 
+//Loads with the page
 document.addEventListener("DOMContentLoaded", (event) => {
     event.preventDefault();
     showResults();
